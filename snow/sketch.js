@@ -1,6 +1,7 @@
 let snow = [];
 let gravity;
-let snowheight = 0;
+let snowheight = 30;
+let circleGlowOffset = 0;
 
 let zOff = 0;
 
@@ -34,11 +35,46 @@ function setup() {
 function draw() {
 	background(0);
 
+	if(circleGlowOffset === -10) circleIsGlowing = true;
+	if(circleGlowOffset === 0) circleIsGlowing = false;
+	if(circleIsGlowing) circleGlowOffset += 0.25;
+	if(!circleIsGlowing) circleGlowOffset -= 0.25;
 	zOff += 0.01;
 
 	push();
 	fill(255);
 	rect(-1, height-snowheight, width + 1, snowheight);
+	pop();
+
+	push();
+	translate(width/2, height);
+	fill(139, 69, 19);
+	stroke(0);
+	for(let i = 0; i <= 6; i++) {
+		rect(0, -120+(i*20), 300, 20);
+	}
+	for(let i = 0; i <= 6; i++) {
+		rect(0, -240+(i*20), (i*50), 20)
+	}
+
+	fill(255, 255, 0, 50);
+	noStroke();
+	ellipseMode(CENTER)
+	ellipse(75, -62.5, 100 + circleGlowOffset, 120 + circleGlowOffset);
+	ellipse(175, -62.5, 100 + circleGlowOffset, 120 + circleGlowOffset);
+	fill(255, 255, 0);
+	rect(50, -100, 50, 75);
+	rect(150, -100, 50, 75);
+	pop();
+
+	push();
+	translate(width/2, height/2-200);
+	noStroke();
+	fill(255, 255, 0);
+	rotate(-PI / 2);
+	arc(100, -200, 150, 150, 0, PI * 4);
+	fill(0);
+	arc(120, -180, 150, 150, 0, PI * 4);
 	pop();
 
 	for(flake of snow) {
