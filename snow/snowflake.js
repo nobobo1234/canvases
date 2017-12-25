@@ -51,6 +51,9 @@ class Snowflake {
 
         if(this.pos.y > height + this.r) {
             this.randomize();
+            if(snowheight !== 40) {
+                snowheight += 0.05
+            }
         }
 
         if(this.pos.x < -this.r) {

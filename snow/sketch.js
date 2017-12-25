@@ -1,5 +1,6 @@
 let snow = [];
 let gravity;
+let snowheight = 0;
 
 let zOff = 0;
 
@@ -34,6 +35,11 @@ function draw() {
 	background(0);
 
 	zOff += 0.01;
+
+	push();
+	fill(255);
+	rect(-1, height-snowheight, width + 1, snowheight);
+	pop();
 
 	for(flake of snow) {
 		let xOff = flake.pos.x / width;
