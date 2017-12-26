@@ -1,6 +1,7 @@
 {
   "name": "canvases",
   "projects": [
-    "snow"
+    "snow",
+    "snow_physics"
   ]
 }
