@@ -2,6 +2,8 @@ let snow = [];
 let gravity;
 let snowheight = 30;
 let circleGlowOffset = 0;
+let bigsnow = [];
+let smallsnow = [];
 
 let zOff = 0;
 
@@ -30,16 +32,37 @@ function setup() {
 		let design = random(textures);
 		snow.push(new Snowflake(x, y, design));
 	}
+	console.log(snow);
+
 }
 
 function draw() {
 	background(0);
+
+	bigsnow = snow.filter(e => {
+		return e.r > 15;
+	});
+	smallsnow = snow.filter(e => {
+		return e.r < 15;
+	});
 
 	if(circleGlowOffset === -10) circleIsGlowing = true;
 	if(circleGlowOffset === 0) circleIsGlowing = false;
 	if(circleIsGlowing) circleGlowOffset += 0.25;
 	if(!circleIsGlowing) circleGlowOffset -= 0.25;
 	zOff += 0.01;
+
+	for(flake of smallsnow) {
+		let xOff = flake.pos.x / width;
+		let yOff = flake.pos.y / height;
+		let wAngle = noise(xOff, yOff, zOff) * TWO_PI;
+		let wind = p5.Vector.fromAngle(wAngle);
+		wind.mult(0.1);
+		flake.applyForce(gravity);
+		flake.applyForce(wind);
+		flake.update();
+		flake.render();
+	}
 
 	push();
 	fill(255);
@@ -68,7 +91,7 @@ function draw() {
 	pop();
 
 	push();
-	translate(width/2, height/2-200);
+	translate(width/2, height/2-150);
 	noStroke();
 	fill(255, 255, 0);
 	rotate(-PI / 2);
@@ -77,7 +100,14 @@ function draw() {
 	arc(120, -180, 150, 150, 0, PI * 4);
 	pop();
 
-	for(flake of snow) {
+	push();
+	fill(139, 69, 19);
+	rect(250, height-200, 50, 200);
+	fill(34, 139, 34);
+	ellipse(275, height-250, 125, 200);
+	pop();
+
+	for(flake of bigsnow) {
 		let xOff = flake.pos.x / width;
 		let yOff = flake.pos.y / height;
 		let wAngle = noise(xOff, yOff, zOff) * TWO_PI;
