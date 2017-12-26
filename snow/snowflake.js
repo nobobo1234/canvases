@@ -52,6 +52,7 @@ class Snowflake {
         if(this.pos.y > height + this.r) {
             this.randomize();
             if(!(snowheight >= 100)) {
+                //piling up snow until it is 100 pixels high
                 snowheight += 0.05;
             }
         }

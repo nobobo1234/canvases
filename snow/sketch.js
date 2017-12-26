@@ -39,6 +39,8 @@ function setup() {
 function draw() {
 	background(0);
 
+	//parallax filtering
+	//TODO: Parallax effect is not really working
 	bigsnow = snow.filter(e => {
 		return e.r > 15;
 	});
@@ -46,12 +48,14 @@ function draw() {
 		return e.r < 15;
 	});
 
+	//setting offsets for the light radius in the house
 	if(circleGlowOffset === -10) circleIsGlowing = true;
 	if(circleGlowOffset === 0) circleIsGlowing = false;
 	if(circleIsGlowing) circleGlowOffset += 0.25;
 	if(!circleIsGlowing) circleGlowOffset -= 0.25;
 	zOff += 0.01;
 
+	//drawing all the snow with a radius <15
 	for(flake of smallsnow) {
 		let xOff = flake.pos.x / width;
 		let yOff = flake.pos.y / height;
@@ -64,11 +68,13 @@ function draw() {
 		flake.render();
 	}
 
+	//drawing snow with variable snowheight
 	push();
 	fill(255);
 	rect(-1, height-snowheight, width + 1, snowheight);
 	pop();
 
+	//drawing house
 	push();
 	translate(width/2, height);
 	fill(139, 69, 19);
@@ -80,6 +86,7 @@ function draw() {
 		rect(0, -240+(i*20), (i*50), 20)
 	}
 
+	//drawing windows in house
 	fill(255, 255, 0, 50);
 	noStroke();
 	ellipseMode(CENTER)
@@ -90,6 +97,7 @@ function draw() {
 	rect(150, -100, 50, 75);
 	pop();
 
+	//drawing moon
 	push();
 	translate(width/2, height/2-150);
 	noStroke();
@@ -100,6 +108,7 @@ function draw() {
 	arc(120, -180, 150, 150, 0, PI * 4);
 	pop();
 
+	//drawing tree
 	push();
 	fill(139, 69, 19);
 	rect(250, height-200, 50, 200);
@@ -107,6 +116,7 @@ function draw() {
 	ellipse(275, height-250, 125, 200);
 	pop();
 
+	//drawing big snow
 	for(flake of bigsnow) {
 		let xOff = flake.pos.x / width;
 		let yOff = flake.pos.y / height;
