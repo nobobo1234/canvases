@@ -2,7 +2,6 @@ function getRandomSmallSize() {
     return random(2, 10)
 }
 function getRandomBigSize() {
-    let r = pow(random(0, 1), 3);
     return random(10, 32)
 }
 
