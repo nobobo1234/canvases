@@ -1,4 +1,3 @@
-let snow = [];
 let gravity;
 let snowheight = 30;
 let circleGlowOffset = 0;
@@ -26,27 +25,23 @@ function setup() {
 		}
 	}
 	
-	for(let i = 0; i < 400; i++) {
+	for(let i = 0; i < 200; i++) {
 		let x = random(width);
 		let y = random(height);
 		let design = random(textures);
-		snow.push(new Snowflake(x, y, design));
+		smallsnow.push(new Snowflake(x, y, design, false));
 	}
-	console.log(snow);
-
+	for(let i = 0; i < 200; i++) {
+		let x = random(width);
+		let y = random(height);
+		let design = random(textures);
+		bigsnow.push(new Snowflake(x, y, design, true));
+	}
 }
 
 function draw() {
 	background(0);
-
-	//parallax filtering
-	//TODO: Parallax effect is not really working
-	bigsnow = snow.filter(e => {
-		return e.r > 15;
-	});
-	smallsnow = snow.filter(e => {
-		return e.r < 15;
-	});
+	// console.log(getRandomBigSize());
 
 	//setting offsets for the light radius in the house
 	if(circleGlowOffset === -10) circleIsGlowing = true;

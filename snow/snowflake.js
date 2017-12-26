@@ -1,12 +1,13 @@
-function getRandomSize() {
-
+function getRandomSmallSize() {
+    return random(2, 10)
+}
+function getRandomBigSize() {
     let r = pow(random(0, 1), 3);
-    return constrain(r * 32, 2, 32);
-
+    return random(10, 32)
 }
 
 class Snowflake {
-    constructor(sx, sy, img) {
+    constructor(sx, sy, img, big) {
         let x = sx || random(width);
         let y = sy || random(-100, -10);
         this.img = img;
@@ -16,7 +17,9 @@ class Snowflake {
         this.angle = random(TWO_PI);
         this.dir = random(1) > 0.5 ? 1 : -1;
         this.xOff = 0;
-        this.r = getRandomSize();
+        this.big = big;
+        if(this.big) this.r = getRandomBigSize();
+        else this.r = getRandomSmallSize();
     }
 
     applyForce(force) {
@@ -32,7 +35,8 @@ class Snowflake {
         this.pos = createVector(x, y);
         this.vel = createVector(0, 0);
         this.acc = createVector();
-        this.r = getRandomSize();
+        if(this.big) this.r = getRandomBigSize();
+        else this.r = getRandomSmallSize();
     }
 
     update() {
